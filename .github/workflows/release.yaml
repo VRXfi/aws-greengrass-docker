@@ -43,7 +43,7 @@ jobs:
             type=raw,value=sha-${{ github.sha }}
             type=raw,value=${{ github.event.release.tag_name }}-0
           labels: |
-            org.opencontainers.image.authors=VRXFii
+            org.opencontainers.image.authors=VRXFi
           flavor: |
             latest=true
 
@@ -56,3 +56,7 @@ jobs:
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
+
+      - name: Notify failure
+        if: failure()
+        uses: slackapi/slack-github-action@v1.15.0
